@@ -59,14 +59,8 @@ export const getCategoriesAndDocuments = async () => {
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-
-  return categoryMap;
-}
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+};
 
 // Function to create a user document in Firestore based on the authenticated user information
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
